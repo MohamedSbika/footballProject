@@ -1,0 +1,108 @@
+{# voirEquipe.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            background-image: url('{{ asset('images/foot13.jpeg') }}');
+            background-size: cover;
+            background-color: rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: white;
+            text-align: left;
+            margin-left: 10px;
+            margin-top: 100px;
+
+        }
+
+        .equipe-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .equipe-item img {
+            margin-right: 10px;
+        }
+
+        .equipe-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nom-equipe {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .btn-ajouter {
+            background-color: white;
+            color: black;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            margin-top: 5px; 
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-left: 10px;
+            color: white;
+        }
+        .sign-out-container {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            background-color: #d9534f; 
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .sign-out-text {
+            color: white;
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        .sign-out-text:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <h1>Liste des équipes</h1>
+
+    <ul>
+        {% for equipe in lesEquipes %}
+            <li class="equipe-item">
+{% if equipe.getLogoFile() is not null %}
+    <img src="{{ vich_uploader_asset(equipe, 'logoFile') }}" alt="Logo de l'équipe" height="100">
+{% elseif equipe.getLogo() is not null %}
+    <img src="{{ asset('images/equipes/' ~ equipe.getLogo()) }}" alt="Logo de l'équipe" height="100">
+{% endif %}
+                <div class="equipe-info">
+                    <span class="nom-equipe">{{ equipe.nomEquipe }}</span>
+                    {% if equipe.logo is not null %}
+                        <a class="btn btn-primary custom-btn btn-ajouter" href="{{ path('equipe_details', {'id': equipe.id }) }}">Voir détails de l'équipe</a>
+
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+        <div class="sign-out-container">
+        <a href="{{ path('security_logout') }}" class="sign-out-text">Sign Out</a>
+    </div>
+{% endblock %}

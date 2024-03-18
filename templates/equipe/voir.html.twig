@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            background-image: url('{{ asset('images/foot13.jpeg') }}');
+            background-size: cover;
+        }
+
+        h1, h2, h3, h4 {
+            color: white;
+            text-align: center;
+        }
+                img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .img-center {
+            display: block;
+            margin: 0 auto;
+            height: 100px; 
+        }
+
+        .nav-pills {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .nav-pills li {
+            display: inline-block;
+            margin-right: 10px;
+            color: white;
+        }
+
+        .nav-pills h4 {
+            margin-bottom: 5px;
+        }
+
+        ul.nav.nav-pills.nav-stacked {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        ul.nav.nav-pills.nav-stacked li {
+            margin-bottom: 15px; 
+            border: 2px solid gray;
+            padding: 15px; 
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        ul.nav.nav-pills.nav-stacked img {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            max-width: 100%; 
+            height: 100px; 
+        }
+        .sign-out-container {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            background-color: #d9534f; 
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .sign-out-text {
+            color: white;
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        .sign-out-text:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <h1>consultation de {{ equipe.getNomEquipe() }}</h1>
+    
+{% if equipe.getLogoFile() is not null %}
+    <img src="{{ vich_uploader_asset(equipe, 'logoFile') }}" alt="Logo de l'équipe" height="100">
+{% elseif equipe.getLogo() is not null %}
+    <img src="{{ asset('images/equipes/' ~ equipe.getLogo()) }}" alt="Logo de l'équipe" height="100">
+{% endif %}
+
+    
+    {% if equipe.getImage() is not null %}
+        <img src="{{ vich_uploader_asset(equipe.getImage(), 'imageFile') }}" alt="{{ equipe.getImage().getAlt() }}" height="100">
+    {% endif %}
+    
+    <h1>{{ equipe.getPays() }}</h1>
+    <h2>Date de création : {{ equipe.getCreatedAt()|date('d-m-Y') }}</h2>
+    <h3>Joueurs</h3>
+    <ul class="nav nav-pills nav-stacked">
+        {% for joueur in listJoueurs %}
+            <li>
+{% if joueur.getPicFile() is not null %}
+    <img src="{{ vich_uploader_asset(joueur, 'picFile') }}" alt="Image du joueur" height="100">
+{% elseif joueur.getPic() is not null %}
+<img src="{{ asset('images/joueurs/' ~ joueur.getPic()) }}" alt="Image du joueur" height="100">
+{% else %}
+    <p>Aucune image disponible</p>
+{% endif %}
+                <p>{{ joueur.getNomJoueur() }}</p>
+                <p>{{ joueur.getPoste() }}</p>
+                <p>{{ joueur.getNationalite() }}</p>
+                <p>{{ joueur.getSalaire() }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+        <div class="sign-out-container">
+        <a href="{{ path('security_logout') }}" class="sign-out-text">Sign Out</a>
+    </div>
+{% endblock %}

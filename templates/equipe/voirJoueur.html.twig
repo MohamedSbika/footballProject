@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            background-image: url('{{ asset('images/foot13.jpeg') }}');
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .content-container {
+            border: 2px solid gray;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center; 
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: white;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+              img {
+            display: block;
+            margin: 0 auto;
+        }
+        .img-center {
+            display: block;
+            margin: 0 auto;
+            height: 100px; 
+        }
+        .sign-out-container {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            background-color: #d9534f; 
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .sign-out-text {
+            color: white;
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        .sign-out-text:hover {
+            text-decoration: underline;
+        }
+        
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="content-container">
+        <h1>Détails du joueur</h1>
+       {% if joueur.getPicFile() is not null %}
+    <img src="{{ vich_uploader_asset(joueur, 'picFile') }}" alt="Image du joueur" height="100">
+{% elseif joueur.getPic() is not null %}
+    <img src="{{ asset('images/joueurs/' ~ joueur.getPic()) }}" alt="Image du joueur" height="100">
+{% else %}
+    <p>Aucune image disponible</p>
+{% endif %}
+        <p><strong>Nom :</strong> {{ joueur.nomJoueur | upper }}</p>
+        <p><strong>Nationalité :</strong> {{ joueur.nationalite }}</p>
+        <p><strong>Poste :</strong> {{ joueur.poste }}</p>
+        <p><strong>Salaire :</strong> {{ joueur.salaire }}</p>
+        <p><strong>Équipe :</strong> {{ joueur.equipe.nomEquipe }}</p>
+    </div>
+
+        <div class="sign-out-container">
+        <a href="{{ path('security_logout') }}" class="sign-out-text">Sign Out</a>
+    </div>
+{% endblock %}

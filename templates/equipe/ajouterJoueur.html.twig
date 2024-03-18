@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            background-image: url('{{ asset('images/foot13.jpeg') }}');
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: white;
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            color: white; 
+        }
+
+        form input,
+        form select,
+        form textarea {
+            margin-bottom: 15px;
+            width: 90%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin: 0 auto; 
+            display: block; 
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+        .sign-out-container {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            background-color: #d9534f; 
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .sign-out-text {
+            color: white;
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        .sign-out-text:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h2>Ajouter un joueur</h2>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+        <div class="sign-out-container">
+        <a href="{{ path('security_logout') }}" class="sign-out-text">Sign Out</a>
+    </div> 
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            background-image: url('{{ asset('images/foot13.jpeg') }}');
+            background-size: cover;
+            color: white;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid white;
+            color: white; 
+        }
+
+        th {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            margin-right: 5px;
+        }
+        .sign-out-container {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            background-color: #d9534f; 
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .sign-out-text {
+            color: white;
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        .sign-out-text:hover {
+            text-decoration: underline;
+        }
+        .orange-link {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #f0ad4e; 
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .orange-link:hover {
+            background-color: #ec971f; 
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<h2>Liste des joueurs  </h2>
+<table class="table table-hover table-striped" border="1">
+<thead>
+<tr>
+<th>Nom </th>
+<th>nationalite</th>
+<th>poste</th>
+<th>salaire</th>
+<th>equipe</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+{% for joueur in listJoueurs %}
+<tr>
+    <td>{{joueur.nomJoueur | upper}}</td>
+    <td>{{joueur.nationalite }}</td>
+    <td>{{joueur.poste}}</td>
+    <td>{{joueur.salaire}}</td>
+    <td>{{joueur.equipe.nomEquipe }}</td>
+    <td>
+        <a class="btn btn-primary orange-link " href="{{ path('equipe_details', {'id': joueur.equipe.id }) }}">Voir detail equipe joueur</a>
+        <a class="btn btn-primary orange-link " href="{{ path('voir_joueur', {'id': joueur.id }) }}">Voir détails joueur</a>
+    </td>
+</tr>
+{% else %}
+<tr>
+    <td colspan="6">Aucun joueur</td>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+        <div class="sign-out-container">
+        <a href="{{ path('security_logout') }}" class="sign-out-text">Sign Out</a>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    body {
+            background-image: url('{{ asset('images/foot13.jpeg') }}');
+        background-size: cover;
+        background-color: rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    form {
+        max-width: 400px;
+        width: 100%;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px; 
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    button.login {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center; 
+        width: 100%; 
+    }
+
+    button.login:hover {
+        background-color: #2980b9;
+    }
+
+    a {
+        text-decoration: none;
+        color: #3498db;
+        transition: color 0.3s ease;
+        font-weight: bold;
+        display: block; 
+        text-align: center; 
+    }
+
+    a:hover {
+        color: #1abc9c;
+    }
+
+</style>
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+<form action="{{ path('login') }}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="_password"/>
+    <button type="submit" class="login">Login</button>
+</form>
+<a href="{{ path('user_registration') }}">Register</a>
+
+{% endblock %}
